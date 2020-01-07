@@ -11,7 +11,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PW:-password123}
     volumes:
       - type: bind
-        source: /opt/data
+        source: ${MONGO_DATA_LOC:-/opt/data}
         target: /data/db
     
   mongo-express:
