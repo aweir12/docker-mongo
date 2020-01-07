@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+
+  mongo:
+    image: mongo:4.0.14
+    ports:
+      - ${MONGO_HOST_PORT:-8001}:27017
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PW:-password123}
+    volumes:
+      - type: bind
+        source: /opt/data
+        target: /data/db
+    
+  mongo-express:
+    image: mongo-express:0.49.0
+    restart: always
+    ports:
+      - ${MONGO_EXPRESS_PORT:-8002}:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER:-root}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PW:-password123}
